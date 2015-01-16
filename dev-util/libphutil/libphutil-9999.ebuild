@@ -20,7 +20,6 @@ LICENSE="Apache-2.0"
 
 src_install()
 {
-	emake install DESTDIR=${D}
 	dodir "/opt/phabricator"
 	cp -a "${S}" "${D}/opt/phabricator/libphutil"
 }
