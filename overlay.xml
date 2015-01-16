@@ -2,7 +2,7 @@
 <!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
 <repositories xmlns="" version="1.0">
   <repo quality="experimental" status="unofficial">
-    <name><![CDATA[reanimus-hhvm]]></name>
+    <name><![CDATA[hhvm]]></name>
     <description><![CDATA[hhvm gentoo overlay]]></description>
     <homepage>https://github.com/reanimus/gentoo-overlay</homepage>
     <owner type="person">
