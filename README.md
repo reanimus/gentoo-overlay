@@ -1,19 +1,14 @@
-Gentoo Portage Overlay [javer]
+Gentoo Portage Overlay [hhvm]
 =========================================
 
 Package Tree
 ------------
 
     .
-    ├── dev-db
-    │   └── pinba-engine
     ├── dev-libs
+    │   ├── jemalloc
     │   ├── libdwarf
     │   └── libmemcached
-    ├── dev-php
-    │   ├── hhvm
-    │   ├── hiphop-php
-    │   └── pinba-extension
-    └── dev-util
-        ├── jenkins-bin
-        └── teamcity
+    └── dev-php
+        ├── hhvm
+        └── hiphop-php
