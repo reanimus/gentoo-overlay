@@ -2,15 +2,15 @@
 <!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
 <repositories xmlns="" version="1.0">
   <repo quality="experimental" status="unofficial">
-    <name><![CDATA[javer]]></name>
-    <description><![CDATA[javer's overlay]]></description>
-    <homepage>https://github.com/javer/gentoo-overlay</homepage>
+    <name><![CDATA[reanimus-hhvm]]></name>
+    <description><![CDATA[hhvm gentoo overlay]]></description>
+    <homepage>https://github.com/reanimus/gentoo-overlay</homepage>
     <owner type="person">
-      <email>dev@javer.kiev.ua</email>
-      <name><![CDATA[Vadim Borodavko]]></name>
+      <email>alex@guzman.io</email>
+      <name><![CDATA[Alex Guzman]]></name>
     </owner>
-    <source type="git">git://github.com/javer/gentoo-overlay.git</source>
-    <source type="git">https://github.com/javer/gentoo-overlay.git</source>
-    <feed>https://github.com/javer/gentoo-overlay/commits/master.atom</feed>
+    <source type="git">git://github.com/reanimus/gentoo-overlay.git</source>
+    <source type="git">https://github.com/reanimus/gentoo-overlay.git</source>
+    <feed>https://github.com/reanimus/gentoo-overlay/commits/master.atom</feed>
   </repo> 
 </repositories>
