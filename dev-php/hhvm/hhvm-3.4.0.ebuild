@@ -92,8 +92,7 @@ pkg_setup() {
 src_prepare()
 {
 	git submodule update --init --recursive
-	# No longer necessary
-	# epatch ${FILESDIR}/hhvm_do_not_build_libzip.patch
+	epatch ${FILESDIR}/hhvm_use_system_libzip_libpcre.patch
 }
 
 src_configure()
