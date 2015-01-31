@@ -58,7 +58,7 @@ DEPEND="
 
 SLOT="0"
 LICENSE="PHP-3"
-KEYWORDS="amd64"
+KEYWORDS="-* amd64"
 
 pkg_setup() {
 	ebegin "Creating hhvm user and group"

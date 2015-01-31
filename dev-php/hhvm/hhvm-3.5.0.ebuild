@@ -8,18 +8,10 @@ inherit eutils git-2 user
 
 EGIT_REPO_URI="https://github.com/facebook/hhvm.git"
 
-case ${PV} in
-9999)
-	EGIT_BRANCH="master"
-	KEYWORDS="~amd64"
-	;;
-*)
-	# For now, git is the only way to fetch releases
-	# https://github.com/facebook/hhvm/issues/2806
-	EGIT_COMMIT="HHVM-${PV}"
-	KEYWORDS="amd64"
-	;;
-esac
+# For now, git is the only way to fetch releases
+# https://github.com/facebook/hhvm/issues/2806
+EGIT_COMMIT="HHVM-${PV}"
+KEYWORDS="-* ~amd64"
 
 IUSE="debug hack jsonc xen zend-compat"
 

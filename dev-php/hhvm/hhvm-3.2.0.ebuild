@@ -17,7 +17,7 @@ case ${PV} in
 	# For now, git is the only way to fetch releases
 	# https://github.com/facebook/hhvm/issues/2806
 	EGIT_COMMIT="HHVM-${PV}"
-	KEYWORDS="amd64"
+	KEYWORDS="-* amd64"
 	;;
 esac
 
