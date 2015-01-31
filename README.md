@@ -8,7 +8,6 @@ Package Tree
 
     .
     ├── dev-libs
-    │   ├── jemalloc
     │   ├── libdwarf
     │   └── libmemcached
     ├── dev-php
