@@ -119,7 +119,7 @@ src_configure()
 
 src_install()
 {
-	emake install DESTDIR=${D}
+	emake install DESTDIR="${D}"
 
 	if use hack; then
 		dobin hphp/hack/bin/hh_client

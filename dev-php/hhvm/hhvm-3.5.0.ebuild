@@ -93,8 +93,6 @@ pkg_setup() {
 src_prepare()
 {
 	git submodule update --init --recursive
-	# No longer necessary
-	# epatch ${FILESDIR}/hhvm_do_not_build_libzip.patch
 }
 
 src_configure()
@@ -121,7 +119,7 @@ src_configure()
 
 src_install()
 {
-	emake install DESTDIR=${D}
+	emake install DESTDIR="${D}"
 
 	if use hack; then
 		dobin hphp/hack/bin/hh_client
