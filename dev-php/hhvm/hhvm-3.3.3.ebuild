@@ -93,7 +93,6 @@ pkg_setup() {
 src_prepare()
 {
 	git submodule update --init --recursive
-	epatch "${FILESDIR}/hhvm_use_system_libzip_libpcre.patch"
 }
 
 src_configure()
