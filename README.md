@@ -15,4 +15,4 @@ Package Tree
     |   └── hiphop-php
     └── dev-util
         ├── arcanist
-        └── libphtuil
+        └── libphutil
