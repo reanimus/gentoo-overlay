@@ -11,8 +11,7 @@ Package Tree
     │   ├── libdwarf
     │   └── libmemcached
     ├── dev-php
-    |   ├── hhvm
-    |   └── hiphop-php
+    |   └── hhvm
     └── dev-util
         ├── arcanist
         └── libphutil
