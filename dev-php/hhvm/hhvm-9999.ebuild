@@ -22,6 +22,7 @@ RDEPEND="
 	dev-cpp/tbb
 	dev-db/sqlite
 	>=dev-lang/ocaml-3.12[ocamlopt]
+	|| ( dev-ml/ocamlbuild <dev-lang/ocaml-4.02.3-r1 )
 	>=dev-libs/boost-1.49[context]
 	dev-libs/cloog
 	dev-libs/elfutils
