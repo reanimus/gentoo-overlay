@@ -11,7 +11,7 @@ EGIT_REPO_URI="https://github.com/facebook/hhvm.git"
 EGIT_BRANCH="master"
 KEYWORDS="-* ~amd64"
 
-IUSE="debug hack jsonc xen zend-compat"
+IUSE="debug jsonc xen zend-compat cpu_flags_x86_avx2"
 
 DESCRIPTION="Virtual Machine, Runtime, and JIT for PHP"
 HOMEPAGE="https://github.com/facebook/hhvm"
@@ -21,8 +21,8 @@ RDEPEND="
 	dev-cpp/glog
 	dev-cpp/tbb
 	dev-db/sqlite
-	hack? ( >=dev-lang/ocaml-3.12[ocamlopt] )
-	>=dev-libs/boost-1.49
+	>=dev-lang/ocaml-3.12[ocamlopt]
+	>=dev-libs/boost-1.49[context]
 	dev-libs/cloog
 	dev-libs/elfutils
 	dev-libs/expat
@@ -38,7 +38,7 @@ RDEPEND="
 	dev-libs/libxslt
 	>=dev-libs/libzip-0.11.0
 	dev-libs/oniguruma
-	dev-libs/openssl
+	dev-libs/openssl[-bindist]
 	media-gfx/imagemagick
 	media-libs/freetype
 	media-libs/gd[jpeg,png]
@@ -55,7 +55,7 @@ RDEPEND="
 DEPEND="
 	${RDEPEND}
 	>=dev-util/cmake-2.8.7
-	sys-devel/binutils
+	sys-devel/binutils[static-libs]
 	sys-devel/bison
 	sys-devel/flex
 "
@@ -104,6 +104,10 @@ src_configure()
 		HHVM_OPTS="${HHVM_OPTS} -DENABLE_ZEND_COMPAT=ON"
 	fi
 
+	if use cpu_flags_x86_avx2; then
+		HHVM_OPTS="${HHVM_OPTS} -DENABLE_AVX2=ON"
+	fi
+
 	econf -DCMAKE_INSTALL_PREFIX="/usr" -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" ${HHVM_OPTS}
 }
 
@@ -111,15 +115,13 @@ src_install()
 {
 	emake install DESTDIR="${D}"
 
-	if use hack; then
-		dobin hphp/hack/bin/hh_client
-		dobin hphp/hack/bin/hh_server
-		dobin hphp/hack/bin/hh_single_type_check
-		dodir "/usr/share/hhvm/hack"
-		cp -a "${S}/hphp/hack/editor-plugins/emacs" "${D}/usr/share/hhvm/hack/"
-		cp -a "${S}/hphp/hack/editor-plugins/vim" "${D}/usr/share/hhvm/hack/"
-		cp -a "${S}/hphp/hack/tools" "${D}/usr/share/hhvm/hack/"
-	fi
+	dobin hphp/hack/bin/hh_client
+	dobin hphp/hack/bin/hh_server
+	dobin hphp/hack/bin/hh_single_type_check
+	dodir "/usr/share/hhvm/hack"
+	cp -a "${S}/hphp/hack/editor-plugins/emacs" "${D}/usr/share/hhvm/hack/"
+	cp -a "${S}/hphp/hack/editor-plugins/vim" "${D}/usr/share/hhvm/hack/"
+	cp -a "${S}/hphp/hack/tools" "${D}/usr/share/hhvm/hack/"
 
 	newinitd "${FILESDIR}"/hhvm.initd-r4 hhvm
 	newconfd "${FILESDIR}"/hhvm.confd-r4 hhvm

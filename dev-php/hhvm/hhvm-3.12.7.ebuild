@@ -8,20 +8,12 @@ inherit eutils git-2 user
 
 EGIT_REPO_URI="https://github.com/facebook/hhvm.git"
 
-case ${PV} in
-9999)
-	EGIT_BRANCH="master"
-	KEYWORDS="~amd64"
-	;;
-*)
-	# For now, git is the only way to fetch releases
-	# https://github.com/facebook/hhvm/issues/2806
-	EGIT_COMMIT="HHVM-${PV}"
-	KEYWORDS="-* amd64"
-	;;
-esac
+# For now, git is the only way to fetch releases
+# https://github.com/facebook/hhvm/issues/2806
+EGIT_COMMIT="HHVM-${PV}"
+KEYWORDS="-* ~amd64"
 
-IUSE="debug hack jsonc xen zend-compat"
+IUSE="cpu_flags_x86_avx2 debug jsonc xen zend-compat"
 
 DESCRIPTION="Virtual Machine, Runtime, and JIT for PHP"
 HOMEPAGE="https://github.com/facebook/hhvm"
@@ -31,8 +23,8 @@ RDEPEND="
 	dev-cpp/glog
 	dev-cpp/tbb
 	dev-db/sqlite
-	hack? ( >=dev-lang/ocaml-3.12[ocamlopt] )
-	>=dev-libs/boost-1.49
+	>=dev-lang/ocaml-3.12[ocamlopt]
+	>=dev-libs/boost-1.49[context]
 	dev-libs/cloog
 	dev-libs/elfutils
 	dev-libs/expat
@@ -48,7 +40,7 @@ RDEPEND="
 	dev-libs/libxslt
 	>=dev-libs/libzip-0.11.0
 	dev-libs/oniguruma
-	dev-libs/openssl
+	dev-libs/openssl[-bindist]
 	media-gfx/imagemagick
 	media-libs/freetype
 	media-libs/gd[jpeg,png]
@@ -114,6 +106,10 @@ src_configure()
 		HHVM_OPTS="${HHVM_OPTS} -DENABLE_ZEND_COMPAT=ON"
 	fi
 
+	if use cpu_flags_x86_avx2; then
+		HHVM_OPTS="${HHVM_OPTS} -DENABLE_AVX2=ON"
+	fi
+
 	econf -DCMAKE_INSTALL_PREFIX="/usr" -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" ${HHVM_OPTS}
 }
 
@@ -121,15 +117,13 @@ src_install()
 {
 	emake install DESTDIR="${D}"
 
-	if use hack; then
-		dobin hphp/hack/bin/hh_client
-		dobin hphp/hack/bin/hh_server
-		dobin hphp/hack/bin/hh_single_type_check
-		dodir "/usr/share/hhvm/hack"
-		cp -a "${S}/hphp/hack/editor-plugins/emacs" "${D}/usr/share/hhvm/hack/"
-		cp -a "${S}/hphp/hack/editor-plugins/vim" "${D}/usr/share/hhvm/hack/"
-		cp -a "${S}/hphp/hack/tools" "${D}/usr/share/hhvm/hack/"
-	fi
+	dobin hphp/hack/bin/hh_client
+	dobin hphp/hack/bin/hh_server
+	dobin hphp/hack/bin/hh_single_type_check
+	dodir "/usr/share/hhvm/hack"
+	cp -a "${S}/hphp/hack/editor-plugins/emacs" "${D}/usr/share/hhvm/hack/"
+	cp -a "${S}/hphp/hack/editor-plugins/vim" "${D}/usr/share/hhvm/hack/"
+	cp -a "${S}/hphp/hack/tools" "${D}/usr/share/hhvm/hack/"
 
 	newinitd "${FILESDIR}"/hhvm.initd-r4 hhvm
 	newconfd "${FILESDIR}"/hhvm.confd-r4 hhvm
