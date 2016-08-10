@@ -1,6 +1,6 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI="5"
 
@@ -30,7 +30,7 @@ src_configure() {
 src_install() {
 	dolib.a libdwarf/libdwarf.a || die
 	newlib.so libdwarf/libdwarf.so libdwarf.so.1 || die
-        dosym /usr/lib/libdwarf.so.1 /usr/lib/libdwarf.so || die
+	dosym /usr/lib/libdwarf.so.1 /usr/lib/libdwarf.so || die
 
 	insinto /usr/include/libdwarf
 	doins libdwarf/libdwarf.h || die
